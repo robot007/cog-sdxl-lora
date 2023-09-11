@@ -424,9 +424,10 @@ class Predictor(BasePredictor):
             output.images[i].save(output_path)
             output_paths.append(Path(output_path))
 
-        if len(output_paths) == 0:
-            raise Exception(
-                f"NSFW content detected. Try running it again, or try a different prompt."
-            )
+        # removed temporary NSFW content check 
+        # if len(output_paths) == 0:
+            # raise Exception(
+                # f"NSFW content detected. Try running it again, or try a different prompt."
+            # )
 
         return output_paths
