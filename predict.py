@@ -19,6 +19,8 @@ from diffusers import (
     PNDMScheduler,
     StableDiffusionXLImg2ImgPipeline,
     StableDiffusionXLInpaintPipeline,
+    KDPM2DiscreteScheduler,
+    KDPM2AncestralDiscreteScheduler
 )
 from diffusers.models.attention_processor import LoRAAttnProcessor2_0
 from diffusers.pipelines.stable_diffusion.safety_checker import (
@@ -44,7 +46,7 @@ class KarrasDPM:
     def from_config(config):
         return DPMSolverMultistepScheduler.from_config(config, use_karras_sigmas=True)
 
-
+# @param ["ddim", "pndm", "lms", "euler", "euler_a", "heun", "dpm_2", "dpm_2_a", "dpmsolver","dpmsolver++", "dpmsingle", "k_lms", "k_euler", "k_euler_a", "k_dpm_2", "k_dpm_2_a"]
 SCHEDULERS = {
     "DDIM": DDIMScheduler,
     "DPMSolverMultistep": DPMSolverMultistepScheduler,
@@ -53,6 +55,8 @@ SCHEDULERS = {
     "K_EULER_ANCESTRAL": EulerAncestralDiscreteScheduler,
     "K_EULER": EulerDiscreteScheduler,
     "PNDM": PNDMScheduler,
+    "K_DPM_2": KDPM2DiscreteScheduler,
+    "K_DPM_2_A": KDPM2AncestralDiscreteScheduler
 }
 
 
