@@ -189,7 +189,7 @@ class Predictor(BasePredictor):
         self.txt2img_pipe.to("cuda")
 
         print("Loading SDXL img2img pipeline...")
-        self.img2img_pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
+        self.img2img_pipe = StableDiffusionXLImg2ImgPipeline(
             vae=self.txt2img_pipe.vae,
             text_encoder=self.txt2img_pipe.text_encoder,
             text_encoder_2=self.txt2img_pipe.text_encoder_2,
@@ -201,7 +201,7 @@ class Predictor(BasePredictor):
         self.img2img_pipe.to("cuda")
 
         print("Loading SDXL inpaint pipeline...")
-        self.inpaint_pipe = StableDiffusionXLInpaintPipeline.from_pretrained(
+        self.inpaint_pipe = StableDiffusionXLInpaintPipeline(
             vae=self.txt2img_pipe.vae,
             text_encoder=self.txt2img_pipe.text_encoder,
             text_encoder_2=self.txt2img_pipe.text_encoder_2,
@@ -222,7 +222,7 @@ class Predictor(BasePredictor):
             download_weights(REFINER_URL, REFINER_MODEL_CACHE)
 
         print("Loading refiner pipeline...")
-        self.refiner = DiffusionPipeline.from_pretrained(
+        self.refiner = StableDiffusionXLPipeline.from_pretrained(
             REFINER_MODEL_CACHE,
             text_encoder_2=self.txt2img_pipe.text_encoder_2,
             vae=self.txt2img_pipe.vae,
