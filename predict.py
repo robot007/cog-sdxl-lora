@@ -17,11 +17,8 @@ from diffusers import (
     EulerDiscreteScheduler,
     HeunDiscreteScheduler,
     PNDMScheduler,
-    StableDiffusionXLPipeline,
     StableDiffusionXLImg2ImgPipeline,
-    StableDiffusionXLInpaintPipeline,
-    KDPM2DiscreteScheduler,
-    KDPM2AncestralDiscreteScheduler
+    StableDiffusionXLInpaintPipeline
 )
 from diffusers.models.attention_processor import LoRAAttnProcessor2_0
 from diffusers.pipelines.stable_diffusion.safety_checker import (
@@ -47,7 +44,6 @@ class KarrasDPM:
     def from_config(config):
         return DPMSolverMultistepScheduler.from_config(config, use_karras_sigmas=True)
 
-# @param ["ddim", "pndm", "lms", "euler", "euler_a", "heun", "dpm_2", "dpm_2_a", "dpmsolver","dpmsolver++", "dpmsingle", "k_lms", "k_euler", "k_euler_a", "k_dpm_2", "k_dpm_2_a"]
 SCHEDULERS = {
     "DDIM": DDIMScheduler,
     "DPMSolverMultistep": DPMSolverMultistepScheduler,
@@ -55,9 +51,7 @@ SCHEDULERS = {
     "KarrasDPM": KarrasDPM,
     "K_EULER_ANCESTRAL": EulerAncestralDiscreteScheduler,
     "K_EULER": EulerDiscreteScheduler,
-    "PNDM": PNDMScheduler,
-    "K_DPM_2": KDPM2DiscreteScheduler,
-    "K_DPM_2_A": KDPM2AncestralDiscreteScheduler
+    "PNDM": PNDMScheduler
 }
 
 
@@ -176,7 +170,7 @@ class Predictor(BasePredictor):
             download_weights(SDXL_URL, SDXL_MODEL_CACHE)
 
         print("Loading sdxl txt2img pipeline...")
-        self.txt2img_pipe = StableDiffusionXLPipeline.from_pretrained(
+        self.txt2img_pipe = DiffusionPipeline.from_pretrained(
             SDXL_MODEL_CACHE,
             torch_dtype=torch.float16,
             use_safetensors=True,
@@ -222,7 +216,7 @@ class Predictor(BasePredictor):
             download_weights(REFINER_URL, REFINER_MODEL_CACHE)
 
         print("Loading refiner pipeline...")
-        self.refiner = StableDiffusionXLPipeline.from_pretrained(
+        self.refiner = DiffusionPipeline.from_pretrained(
             REFINER_MODEL_CACHE,
             text_encoder_2=self.txt2img_pipe.text_encoder_2,
             vae=self.txt2img_pipe.vae,
