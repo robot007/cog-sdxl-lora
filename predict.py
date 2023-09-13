@@ -17,6 +17,7 @@ from diffusers import (
     EulerDiscreteScheduler,
     HeunDiscreteScheduler,
     PNDMScheduler,
+    StableDiffusionXLPipeline,
     StableDiffusionXLImg2ImgPipeline,
     StableDiffusionXLInpaintPipeline
 )
@@ -380,6 +381,9 @@ class Predictor(BasePredictor):
 
         pipe.scheduler = SCHEDULERS[scheduler].from_config(pipe.scheduler.config)
         generator = torch.Generator("cuda").manual_seed(seed)
+        # optimize inference speed-up 20%
+        # pipe.unet = torch.compile(pipe.unet, mode="reduce-overhead", fullgraph=True)
+        # self.refiner.unet = torch.compile(self.refiner.unet, mode="reduce-overhead", fullgraph=True)
 
         common_args = {
             "prompt": [prompt] * num_outputs,
