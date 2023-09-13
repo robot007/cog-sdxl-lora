@@ -17,6 +17,7 @@ from diffusers import (
     EulerDiscreteScheduler,
     HeunDiscreteScheduler,
     PNDMScheduler,
+    StableDiffusionXLPipeline,
     StableDiffusionXLImg2ImgPipeline,
     StableDiffusionXLInpaintPipeline,
     KDPM2DiscreteScheduler,
@@ -175,7 +176,7 @@ class Predictor(BasePredictor):
             download_weights(SDXL_URL, SDXL_MODEL_CACHE)
 
         print("Loading sdxl txt2img pipeline...")
-        self.txt2img_pipe = DiffusionPipeline.from_pretrained(
+        self.txt2img_pipe = StableDiffusionXLPipeline.from_pretrained(
             SDXL_MODEL_CACHE,
             torch_dtype=torch.float16,
             use_safetensors=True,
@@ -188,7 +189,7 @@ class Predictor(BasePredictor):
         self.txt2img_pipe.to("cuda")
 
         print("Loading SDXL img2img pipeline...")
-        self.img2img_pipe = StableDiffusionXLImg2ImgPipeline(
+        self.img2img_pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
             vae=self.txt2img_pipe.vae,
             text_encoder=self.txt2img_pipe.text_encoder,
             text_encoder_2=self.txt2img_pipe.text_encoder_2,
@@ -200,7 +201,7 @@ class Predictor(BasePredictor):
         self.img2img_pipe.to("cuda")
 
         print("Loading SDXL inpaint pipeline...")
-        self.inpaint_pipe = StableDiffusionXLInpaintPipeline(
+        self.inpaint_pipe = StableDiffusionXLInpaintPipeline.from_pretrained(
             vae=self.txt2img_pipe.vae,
             text_encoder=self.txt2img_pipe.text_encoder,
             text_encoder_2=self.txt2img_pipe.text_encoder_2,
