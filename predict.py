@@ -385,6 +385,9 @@ class Predictor(BasePredictor):
         # pipe.unet = torch.compile(pipe.unet, mode="reduce-overhead", fullgraph=True)
         # self.refiner.unet = torch.compile(self.refiner.unet, mode="reduce-overhead", fullgraph=True)
 
+        # Load Wrong LoRA Weights 
+        # pipe.load_lora_weights("minimaxir/sdxl-wrong-lora")
+
         common_args = {
             "prompt": [prompt] * num_outputs,
             "negative_prompt": [negative_prompt] * num_outputs,
