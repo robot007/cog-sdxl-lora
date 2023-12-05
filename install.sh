@@ -17,6 +17,12 @@ sudo apt update
 # Install CUDA 11.8
 sudo apt install -y cuda-11-8
 
+
+# Install TensorFlow
+# pip3 install tensorflow
+pip install -r requirements.txt
+
+
 # Post-installation steps for CUDA (optional, uncomment if needed)
 # echo 'export PATH=/usr/local/cuda-11.8/bin${PATH:+:${PATH}}' >> ~/.bashrc
 # echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
