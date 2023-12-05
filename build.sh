@@ -5,7 +5,7 @@ set -o xtrace
 
 echo "Build the base + weights"
 
-BASE_IMAGE="r8.im/alexgenovese/sdxl-lora"
+BASE_IMAGE="r8.im/robot007/sdxl-lora"
 
 # echo "ignore all the small files, copy big files"
 # find . -type f -size -10M > .dockerignore

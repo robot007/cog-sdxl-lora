@@ -4,7 +4,7 @@
 sudo apt update
 
 # Install general dependencies
-sudo apt install -y libgl1-mesa-glx ffmpeg libsm6 libxext6
+sudo apt install -y libgl1-mesa-glx ffmpeg libsm6 libxext6 wget curl
 
 # Install Python 3.9
 sudo apt install -y python3.9 python3.9-venv python3.9-dev
@@ -14,13 +14,18 @@ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda
 sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
 sudo apt update
 
+sudo curl -o /usr/local/bin/cog -L "https://github.com/replicate/cog/releases/latest/download/cog_$(uname -s)_$(uname -m)"
+sudo chmod +x /usr/local/bin/cog
+
 # Install CUDA 11.8
 sudo apt install -y cuda-11-8
 
+
+
 # Post-installation steps for CUDA (optional, uncomment if needed)
-# echo 'export PATH=/usr/local/cuda-11.8/bin${PATH:+:${PATH}}' >> ~/.bashrc
-# echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
-# source ~/.bashrc
+echo 'export PATH=/usr/local/cuda-11.8/bin${PATH:+:${PATH}}' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
+source ~/.bashrc
 
 # Verify CUDA installation (optional, uncomment to use)
-# nvcc --version
+nvcc --version

@@ -1,3 +1,17 @@
-./preprocess-cache/Caidas/model.safetensors
-./preprocess-cache/models--caidas--swin2SR-realworld-sr-x4-64-bsrgan-psnr/blobs/4a5f52a20932085557ed115f87c0ee8385e12f2719108c0dfd38c64aedea4710
-./.git/objects/pack/pack-c90556134b97ff916c12f8035e4301e113a1ecb9.pack
+# The .dockerignore file excludes files from the container build process.
+#
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+
+# Exclude Git files
+.git
+.github
+.gitignore
+
+# Exclude Python cache files
+__pycache__
+.mypy_cache
+.pytest_cache
+.ruff_cache
+
+# Exclude Python virtual environment
+/venv
