@@ -2,7 +2,7 @@
 # https://github.com/replicate/cog/blob/main/docs/python.md
 
 from cog import BasePredictor, Input, Path
-
+import unittest
 
 class Predictor(BasePredictor):
     def setup(self) -> None:
@@ -20,3 +20,17 @@ class Predictor(BasePredictor):
         # processed_input = preprocess(image)
         # output = self.model(processed_image, scale)
         # return postprocess(output)
+        return "dummy"
+
+class Test(unittest.TestCase):
+    def setUp(self):
+        self.my = Predictor()
+    
+    def test_read(self):
+        self.assertEqual(self.my.predict(image="room1.png", scale=1.2), "dummy" )
+
+    def test_image(self):
+        self.assertEqual(self.my.predict(image="@room1.png", scale=1.2), "dummy" )
+
+if __name__ == '__main__':
+    unittest.main()
