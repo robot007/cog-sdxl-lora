@@ -21,6 +21,8 @@ sudo chmod +x /usr/local/bin/cog
 sudo apt install -y cuda-11-8
 
 
+# Install TensorFlow
+pip install -r requirements.txt
 
 # Post-installation steps for CUDA (optional, uncomment if needed)
 echo 'export PATH=/usr/local/cuda-11.8/bin${PATH:+:${PATH}}' >> ~/.bashrc
